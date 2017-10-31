@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dagather.fonme.wallet.dao.UserWalletMapper" >
+  <resultMap id="BaseResultMap" type="com.dagather.fonme.wallet.model.UserWallet" >
+    <id column="uwid" property="uwid" jdbcType="BIGINT" />
+    <result column="uiid" property="uiid" jdbcType="BIGINT" />
+    <result column="balance" property="balance" jdbcType="BIGINT" />
+    <result column="currency_type" property="currencyType" jdbcType="INTEGER" />
+    <result column="flag_enable" property="flagEnable" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    uwid, uiid, balance, currency_type, flag_enable, create_date, update_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dagather.fonme.wallet.model.UserWalletExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fm_user_wallet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_user_wallet
+    where uwid = #{uwid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fm_user_wallet
+    where uwid = #{uwid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dagather.fonme.wallet.model.UserWalletExample" >
+    delete from fm_user_wallet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dagather.fonme.wallet.model.UserWallet" >
+    insert into fm_user_wallet (uwid, uiid, balance, 
+      currency_type, flag_enable, create_date, 
+      update_date)
+    values (#{uwid,jdbcType=BIGINT}, #{uiid,jdbcType=BIGINT}, #{balance,jdbcType=BIGINT}, 
+      #{currencyType,jdbcType=INTEGER}, #{flagEnable,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dagather.fonme.wallet.model.UserWallet" >
+    insert into fm_user_wallet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uwid != null" >
+        uwid,
+      </if>
+      <if test="uiid != null" >
+        uiid,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="currencyType != null" >
+        currency_type,
+      </if>
+      <if test="flagEnable != null" >
+        flag_enable,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uwid != null" >
+        #{uwid,jdbcType=BIGINT},
+      </if>
+      <if test="uiid != null" >
+        #{uiid,jdbcType=BIGINT},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=BIGINT},
+      </if>
+      <if test="currencyType != null" >
+        #{currencyType,jdbcType=INTEGER},
+      </if>
+      <if test="flagEnable != null" >
+        #{flagEnable,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dagather.fonme.wallet.model.UserWalletExample" resultType="java.lang.Integer" >
+    select count(*) from fm_user_wallet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fm_user_wallet
+    <set >
+      <if test="record.uwid != null" >
+        uwid = #{record.uwid,jdbcType=BIGINT},
+      </if>
+      <if test="record.uiid != null" >
+        uiid = #{record.uiid,jdbcType=BIGINT},
+      </if>
+      <if test="record.balance != null" >
+        balance = #{record.balance,jdbcType=BIGINT},
+      </if>
+      <if test="record.currencyType != null" >
+        currency_type = #{record.currencyType,jdbcType=INTEGER},
+      </if>
+      <if test="record.flagEnable != null" >
+        flag_enable = #{record.flagEnable,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null" >
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fm_user_wallet
+    set uwid = #{record.uwid,jdbcType=BIGINT},
+      uiid = #{record.uiid,jdbcType=BIGINT},
+      balance = #{record.balance,jdbcType=BIGINT},
+      currency_type = #{record.currencyType,jdbcType=INTEGER},
+      flag_enable = #{record.flagEnable,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dagather.fonme.wallet.model.UserWallet" >
+    update fm_user_wallet
+    <set >
+      <if test="uiid != null" >
+        uiid = #{uiid,jdbcType=BIGINT},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=BIGINT},
+      </if>
+      <if test="currencyType != null" >
+        currency_type = #{currencyType,jdbcType=INTEGER},
+      </if>
+      <if test="flagEnable != null" >
+        flag_enable = #{flagEnable,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where uwid = #{uwid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dagather.fonme.wallet.model.UserWallet" >
+    update fm_user_wallet
+    set uiid = #{uiid,jdbcType=BIGINT},
+      balance = #{balance,jdbcType=BIGINT},
+      currency_type = #{currencyType,jdbcType=INTEGER},
+      flag_enable = #{flagEnable,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where uwid = #{uwid,jdbcType=BIGINT}
+  </update>
+  <select resultMap="BaseResultMap" parameterType="com.dagather.fonme.wallet.model.UserWalletExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fm_user_wallet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

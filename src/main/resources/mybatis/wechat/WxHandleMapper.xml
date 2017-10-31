@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dagather.fonme.wechat.dao.WxHandleMapper" >
+  <resultMap id="BaseResultMap" type="com.dagather.fonme.wechat.model.WxHandle" >
+    <id column="whid" property="whid" jdbcType="BIGINT" />
+    <result column="wcaid" property="wcaid" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="hcode" property="hcode" jdbcType="VARCHAR" />
+    <result column="handleurl" property="handleurl" jdbcType="VARCHAR" />
+    <result column="pwhid" property="pwhid" jdbcType="BIGINT" />
+    <result column="flag_enable" property="flagEnable" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    whid, wcaid, title, hcode, handleurl, pwhid, flag_enable, create_date, update_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dagather.fonme.wechat.model.WxHandleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fm_wx_handle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_wx_handle
+    where whid = #{whid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fm_wx_handle
+    where whid = #{whid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dagather.fonme.wechat.model.WxHandleExample" >
+    delete from fm_wx_handle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dagather.fonme.wechat.model.WxHandle" >
+    insert into fm_wx_handle (whid, wcaid, title, 
+      hcode, handleurl, pwhid, 
+      flag_enable, create_date, update_date
+      )
+    values (#{whid,jdbcType=BIGINT}, #{wcaid,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
+      #{hcode,jdbcType=VARCHAR}, #{handleurl,jdbcType=VARCHAR}, #{pwhid,jdbcType=BIGINT}, 
+      #{flagEnable,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dagather.fonme.wechat.model.WxHandle" >
+    insert into fm_wx_handle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="whid != null" >
+        whid,
+      </if>
+      <if test="wcaid != null" >
+        wcaid,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="hcode != null" >
+        hcode,
+      </if>
+      <if test="handleurl != null" >
+        handleurl,
+      </if>
+      <if test="pwhid != null" >
+        pwhid,
+      </if>
+      <if test="flagEnable != null" >
+        flag_enable,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="whid != null" >
+        #{whid,jdbcType=BIGINT},
+      </if>
+      <if test="wcaid != null" >
+        #{wcaid,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="hcode != null" >
+        #{hcode,jdbcType=VARCHAR},
+      </if>
+      <if test="handleurl != null" >
+        #{handleurl,jdbcType=VARCHAR},
+      </if>
+      <if test="pwhid != null" >
+        #{pwhid,jdbcType=BIGINT},
+      </if>
+      <if test="flagEnable != null" >
+        #{flagEnable,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dagather.fonme.wechat.model.WxHandleExample" resultType="java.lang.Integer" >
+    select count(*) from fm_wx_handle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fm_wx_handle
+    <set >
+      <if test="record.whid != null" >
+        whid = #{record.whid,jdbcType=BIGINT},
+      </if>
+      <if test="record.wcaid != null" >
+        wcaid = #{record.wcaid,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hcode != null" >
+        hcode = #{record.hcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.handleurl != null" >
+        handleurl = #{record.handleurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pwhid != null" >
+        pwhid = #{record.pwhid,jdbcType=BIGINT},
+      </if>
+      <if test="record.flagEnable != null" >
+        flag_enable = #{record.flagEnable,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null" >
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fm_wx_handle
+    set whid = #{record.whid,jdbcType=BIGINT},
+      wcaid = #{record.wcaid,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      hcode = #{record.hcode,jdbcType=VARCHAR},
+      handleurl = #{record.handleurl,jdbcType=VARCHAR},
+      pwhid = #{record.pwhid,jdbcType=BIGINT},
+      flag_enable = #{record.flagEnable,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dagather.fonme.wechat.model.WxHandle" >
+    update fm_wx_handle
+    <set >
+      <if test="wcaid != null" >
+        wcaid = #{wcaid,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="hcode != null" >
+        hcode = #{hcode,jdbcType=VARCHAR},
+      </if>
+      <if test="handleurl != null" >
+        handleurl = #{handleurl,jdbcType=VARCHAR},
+      </if>
+      <if test="pwhid != null" >
+        pwhid = #{pwhid,jdbcType=BIGINT},
+      </if>
+      <if test="flagEnable != null" >
+        flag_enable = #{flagEnable,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where whid = #{whid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dagather.fonme.wechat.model.WxHandle" >
+    update fm_wx_handle
+    set wcaid = #{wcaid,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      hcode = #{hcode,jdbcType=VARCHAR},
+      handleurl = #{handleurl,jdbcType=VARCHAR},
+      pwhid = #{pwhid,jdbcType=BIGINT},
+      flag_enable = #{flagEnable,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where whid = #{whid,jdbcType=BIGINT}
+  </update>
+  <select resultMap="BaseResultMap" parameterType="com.dagather.fonme.wechat.model.WxHandleExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fm_wx_handle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

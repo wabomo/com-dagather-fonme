@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dagather.fonme.dial.dao.OriginalCdrMapper" >
+  <resultMap id="BaseResultMap" type="com.dagather.fonme.dial.model.OriginalCdr" >
+    <id column="callid" property="callid" jdbcType="VARCHAR" />
+    <result column="appId" property="appid" jdbcType="VARCHAR" />
+    <result column="binduuId" property="binduuid" jdbcType="VARCHAR" />
+    <result column="callee" property="callee" jdbcType="VARCHAR" />
+    <result column="startcalltime" property="startcalltime" jdbcType="VARCHAR" />
+    <result column="startringtime" property="startringtime" jdbcType="VARCHAR" />
+    <result column="calleeaccepttime" property="calleeaccepttime" jdbcType="VARCHAR" />
+    <result column="calleedisplaynum" property="calleedisplaynum" jdbcType="VARCHAR" />
+    <result column="endcalltime" property="endcalltime" jdbcType="VARCHAR" />
+    <result column="callendreason" property="callendreason" jdbcType="VARCHAR" />
+    <result column="duration" property="duration" jdbcType="BIGINT" />
+    <result column="recordfile" property="recordfile" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    callid, appId, binduuId, callee, startcalltime, startringtime, calleeaccepttime, 
+    calleedisplaynum, endcalltime, callendreason, duration, recordfile, create_date, 
+    update_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dagather.fonme.dial.model.OriginalCdrExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fm_original_cdr
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_original_cdr
+    where callid = #{callid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from fm_original_cdr
+    where callid = #{callid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dagather.fonme.dial.model.OriginalCdrExample" >
+    delete from fm_original_cdr
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dagather.fonme.dial.model.OriginalCdr" >
+    insert into fm_original_cdr (callid, appId, binduuId, 
+      callee, startcalltime, startringtime, 
+      calleeaccepttime, calleedisplaynum, endcalltime, 
+      callendreason, duration, recordfile, 
+      create_date, update_date)
+    values (#{callid,jdbcType=VARCHAR}, #{appid,jdbcType=VARCHAR}, #{binduuid,jdbcType=VARCHAR}, 
+      #{callee,jdbcType=VARCHAR}, #{startcalltime,jdbcType=VARCHAR}, #{startringtime,jdbcType=VARCHAR}, 
+      #{calleeaccepttime,jdbcType=VARCHAR}, #{calleedisplaynum,jdbcType=VARCHAR}, #{endcalltime,jdbcType=VARCHAR}, 
+      #{callendreason,jdbcType=VARCHAR}, #{duration,jdbcType=BIGINT}, #{recordfile,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dagather.fonme.dial.model.OriginalCdr" >
+    insert into fm_original_cdr
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="callid != null" >
+        callid,
+      </if>
+      <if test="appid != null" >
+        appId,
+      </if>
+      <if test="binduuid != null" >
+        binduuId,
+      </if>
+      <if test="callee != null" >
+        callee,
+      </if>
+      <if test="startcalltime != null" >
+        startcalltime,
+      </if>
+      <if test="startringtime != null" >
+        startringtime,
+      </if>
+      <if test="calleeaccepttime != null" >
+        calleeaccepttime,
+      </if>
+      <if test="calleedisplaynum != null" >
+        calleedisplaynum,
+      </if>
+      <if test="endcalltime != null" >
+        endcalltime,
+      </if>
+      <if test="callendreason != null" >
+        callendreason,
+      </if>
+      <if test="duration != null" >
+        duration,
+      </if>
+      <if test="recordfile != null" >
+        recordfile,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="callid != null" >
+        #{callid,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null" >
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="binduuid != null" >
+        #{binduuid,jdbcType=VARCHAR},
+      </if>
+      <if test="callee != null" >
+        #{callee,jdbcType=VARCHAR},
+      </if>
+      <if test="startcalltime != null" >
+        #{startcalltime,jdbcType=VARCHAR},
+      </if>
+      <if test="startringtime != null" >
+        #{startringtime,jdbcType=VARCHAR},
+      </if>
+      <if test="calleeaccepttime != null" >
+        #{calleeaccepttime,jdbcType=VARCHAR},
+      </if>
+      <if test="calleedisplaynum != null" >
+        #{calleedisplaynum,jdbcType=VARCHAR},
+      </if>
+      <if test="endcalltime != null" >
+        #{endcalltime,jdbcType=VARCHAR},
+      </if>
+      <if test="callendreason != null" >
+        #{callendreason,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        #{duration,jdbcType=BIGINT},
+      </if>
+      <if test="recordfile != null" >
+        #{recordfile,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dagather.fonme.dial.model.OriginalCdrExample" resultType="java.lang.Integer" >
+    select count(*) from fm_original_cdr
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fm_original_cdr
+    <set >
+      <if test="record.callid != null" >
+        callid = #{record.callid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appid != null" >
+        appId = #{record.appid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.binduuid != null" >
+        binduuId = #{record.binduuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callee != null" >
+        callee = #{record.callee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startcalltime != null" >
+        startcalltime = #{record.startcalltime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startringtime != null" >
+        startringtime = #{record.startringtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.calleeaccepttime != null" >
+        calleeaccepttime = #{record.calleeaccepttime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.calleedisplaynum != null" >
+        calleedisplaynum = #{record.calleedisplaynum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endcalltime != null" >
+        endcalltime = #{record.endcalltime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callendreason != null" >
+        callendreason = #{record.callendreason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.duration != null" >
+        duration = #{record.duration,jdbcType=BIGINT},
+      </if>
+      <if test="record.recordfile != null" >
+        recordfile = #{record.recordfile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null" >
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fm_original_cdr
+    set callid = #{record.callid,jdbcType=VARCHAR},
+      appId = #{record.appid,jdbcType=VARCHAR},
+      binduuId = #{record.binduuid,jdbcType=VARCHAR},
+      callee = #{record.callee,jdbcType=VARCHAR},
+      startcalltime = #{record.startcalltime,jdbcType=VARCHAR},
+      startringtime = #{record.startringtime,jdbcType=VARCHAR},
+      calleeaccepttime = #{record.calleeaccepttime,jdbcType=VARCHAR},
+      calleedisplaynum = #{record.calleedisplaynum,jdbcType=VARCHAR},
+      endcalltime = #{record.endcalltime,jdbcType=VARCHAR},
+      callendreason = #{record.callendreason,jdbcType=VARCHAR},
+      duration = #{record.duration,jdbcType=BIGINT},
+      recordfile = #{record.recordfile,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dagather.fonme.dial.model.OriginalCdr" >
+    update fm_original_cdr
+    <set >
+      <if test="appid != null" >
+        appId = #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="binduuid != null" >
+        binduuId = #{binduuid,jdbcType=VARCHAR},
+      </if>
+      <if test="callee != null" >
+        callee = #{callee,jdbcType=VARCHAR},
+      </if>
+      <if test="startcalltime != null" >
+        startcalltime = #{startcalltime,jdbcType=VARCHAR},
+      </if>
+      <if test="startringtime != null" >
+        startringtime = #{startringtime,jdbcType=VARCHAR},
+      </if>
+      <if test="calleeaccepttime != null" >
+        calleeaccepttime = #{calleeaccepttime,jdbcType=VARCHAR},
+      </if>
+      <if test="calleedisplaynum != null" >
+        calleedisplaynum = #{calleedisplaynum,jdbcType=VARCHAR},
+      </if>
+      <if test="endcalltime != null" >
+        endcalltime = #{endcalltime,jdbcType=VARCHAR},
+      </if>
+      <if test="callendreason != null" >
+        callendreason = #{callendreason,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        duration = #{duration,jdbcType=BIGINT},
+      </if>
+      <if test="recordfile != null" >
+        recordfile = #{recordfile,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where callid = #{callid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dagather.fonme.dial.model.OriginalCdr" >
+    update fm_original_cdr
+    set appId = #{appid,jdbcType=VARCHAR},
+      binduuId = #{binduuid,jdbcType=VARCHAR},
+      callee = #{callee,jdbcType=VARCHAR},
+      startcalltime = #{startcalltime,jdbcType=VARCHAR},
+      startringtime = #{startringtime,jdbcType=VARCHAR},
+      calleeaccepttime = #{calleeaccepttime,jdbcType=VARCHAR},
+      calleedisplaynum = #{calleedisplaynum,jdbcType=VARCHAR},
+      endcalltime = #{endcalltime,jdbcType=VARCHAR},
+      callendreason = #{callendreason,jdbcType=VARCHAR},
+      duration = #{duration,jdbcType=BIGINT},
+      recordfile = #{recordfile,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where callid = #{callid,jdbcType=VARCHAR}
+  </update>
+  <select resultMap="BaseResultMap" parameterType="com.dagather.fonme.dial.model.OriginalCdrExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fm_original_cdr
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

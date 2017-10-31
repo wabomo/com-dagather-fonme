@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dagather.fonme.dial.dao.DialRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.dagather.fonme.dial.model.DialRecord" >
+    <id column="drid" property="drid" jdbcType="VARCHAR" />
+    <result column="uiid" property="uiid" jdbcType="BIGINT" />
+    <result column="sessionid" property="sessionid" jdbcType="VARCHAR" />
+    <result column="caller" property="caller" jdbcType="VARCHAR" />
+    <result column="called" property="called" jdbcType="VARCHAR" />
+    <result column="flag_enable" property="flagEnable" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    drid, uiid, sessionid, caller, called, flag_enable, create_date, update_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dagather.fonme.dial.model.DialRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fm_dial_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_dial_record
+    where drid = #{drid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from fm_dial_record
+    where drid = #{drid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dagather.fonme.dial.model.DialRecordExample" >
+    delete from fm_dial_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dagather.fonme.dial.model.DialRecord" >
+    insert into fm_dial_record (drid, uiid, sessionid, 
+      caller, called, flag_enable, 
+      create_date, update_date)
+    values (#{drid,jdbcType=VARCHAR}, #{uiid,jdbcType=BIGINT}, #{sessionid,jdbcType=VARCHAR}, 
+      #{caller,jdbcType=VARCHAR}, #{called,jdbcType=VARCHAR}, #{flagEnable,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dagather.fonme.dial.model.DialRecord" >
+    insert into fm_dial_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="drid != null" >
+        drid,
+      </if>
+      <if test="uiid != null" >
+        uiid,
+      </if>
+      <if test="sessionid != null" >
+        sessionid,
+      </if>
+      <if test="caller != null" >
+        caller,
+      </if>
+      <if test="called != null" >
+        called,
+      </if>
+      <if test="flagEnable != null" >
+        flag_enable,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="drid != null" >
+        #{drid,jdbcType=VARCHAR},
+      </if>
+      <if test="uiid != null" >
+        #{uiid,jdbcType=BIGINT},
+      </if>
+      <if test="sessionid != null" >
+        #{sessionid,jdbcType=VARCHAR},
+      </if>
+      <if test="caller != null" >
+        #{caller,jdbcType=VARCHAR},
+      </if>
+      <if test="called != null" >
+        #{called,jdbcType=VARCHAR},
+      </if>
+      <if test="flagEnable != null" >
+        #{flagEnable,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dagather.fonme.dial.model.DialRecordExample" resultType="java.lang.Integer" >
+    select count(*) from fm_dial_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fm_dial_record
+    <set >
+      <if test="record.drid != null" >
+        drid = #{record.drid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uiid != null" >
+        uiid = #{record.uiid,jdbcType=BIGINT},
+      </if>
+      <if test="record.sessionid != null" >
+        sessionid = #{record.sessionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caller != null" >
+        caller = #{record.caller,jdbcType=VARCHAR},
+      </if>
+      <if test="record.called != null" >
+        called = #{record.called,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flagEnable != null" >
+        flag_enable = #{record.flagEnable,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null" >
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fm_dial_record
+    set drid = #{record.drid,jdbcType=VARCHAR},
+      uiid = #{record.uiid,jdbcType=BIGINT},
+      sessionid = #{record.sessionid,jdbcType=VARCHAR},
+      caller = #{record.caller,jdbcType=VARCHAR},
+      called = #{record.called,jdbcType=VARCHAR},
+      flag_enable = #{record.flagEnable,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dagather.fonme.dial.model.DialRecord" >
+    update fm_dial_record
+    <set >
+      <if test="uiid != null" >
+        uiid = #{uiid,jdbcType=BIGINT},
+      </if>
+      <if test="sessionid != null" >
+        sessionid = #{sessionid,jdbcType=VARCHAR},
+      </if>
+      <if test="caller != null" >
+        caller = #{caller,jdbcType=VARCHAR},
+      </if>
+      <if test="called != null" >
+        called = #{called,jdbcType=VARCHAR},
+      </if>
+      <if test="flagEnable != null" >
+        flag_enable = #{flagEnable,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where drid = #{drid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dagather.fonme.dial.model.DialRecord" >
+    update fm_dial_record
+    set uiid = #{uiid,jdbcType=BIGINT},
+      sessionid = #{sessionid,jdbcType=VARCHAR},
+      caller = #{caller,jdbcType=VARCHAR},
+      called = #{called,jdbcType=VARCHAR},
+      flag_enable = #{flagEnable,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where drid = #{drid,jdbcType=VARCHAR}
+  </update>
+  <select resultMap="BaseResultMap" parameterType="com.dagather.fonme.dial.model.DialRecordExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fm_dial_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>
