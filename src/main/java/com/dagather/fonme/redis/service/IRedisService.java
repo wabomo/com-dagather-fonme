@@ -1,40 +1,56 @@
 package com.dagather.fonme.redis.service;
 
-import java.io.Serializable;
 import redis.clients.jedis.ShardedJedis;
 
-public abstract interface IRedisService {
-	public abstract ShardedJedis getShardedJedis();
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
-	public abstract boolean returnResource(ShardedJedis paramShardedJedis);
+public interface IRedisService {
 
-	public abstract boolean setObjectKeyToRedis(String paramString, Serializable paramSerializable);
+    ShardedJedis getShardedJedis();
 
-	public abstract boolean setObjectKeyToRedis(String paramString, Serializable paramSerializable, int paramInt);
+    boolean returnResource(ShardedJedis paramShardedJedis);
 
-	public abstract <T> T getObjectKeyToRedis(String paramString, Class<T> paramClass);
+    boolean setObjectKeyToRedis(String paramString, Serializable paramSerializable);
 
-	public abstract boolean setStringKeyToRedis(String paramString1, String paramString2);
+    boolean setObjectKeyToRedis(String paramString, Serializable paramSerializable, int paramInt);
 
-	public abstract boolean setStringKeyToRedis(String paramString1, String paramString2, int paramInt);
+    <T> T getObjectKeyToRedis(String paramString, Class<T> paramClass);
 
-	public abstract String getStringKeyToRedis(String paramString);
+    boolean setStringKeyToRedis(String paramString1, String paramString2);
 
-	public abstract boolean keyExists(String paramString);
+    boolean setStringKeyToRedis(String paramString1, String paramString2, int paramInt);
 
-	public abstract Long expire(String paramString, int paramInt);
+    String getStringKeyToRedis(String paramString);
 
-	public abstract Long incr(String paramString);
+    boolean keyExists(String paramString);
 
-	public abstract Long incr(String paramString, int paramInt);
+    Long expire(String paramString, int paramInt);
 
-	public abstract Long dinc(String paramString);
+    Long incr(String paramString);
 
-	public abstract Long dinc(String paramString, int paramInt);
+    Long incr(String paramString, int paramInt);
 
-	public abstract boolean delKey(String paramString);
+    Long dinc(String paramString);
 
-	public abstract Long rpush(String paramString1, String paramString2, int paramInt);
+    Long dinc(String paramString, int paramInt);
 
-	public abstract <T> T lrang(String paramString, Long paramLong1, Long paramLong2, Class<T> paramClass);
+    boolean delKey(String paramString);
+
+    Long rpush(String key, String str, int seconds);
+
+    Long llen(String key);
+
+    List<String> lrange(String key, long start, long end);
+
+    String hget(String key, String field);
+
+    List<String> hmget(String key, String... fields);
+
+    Map<String, String> hgetall(String key);
+
+    Long hset(String key, String field, String value);
+
+    String hmset(String key, Map<String, String> hash);
 }

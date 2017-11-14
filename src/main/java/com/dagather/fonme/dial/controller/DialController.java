@@ -101,6 +101,13 @@ public class DialController {
 			logger.info("<|>DialController<|>sendSms<|>phone:{}<|>{}<|>{}<|>",
 					new Object[] { phone, rsp.getResult().getSuccess(), rsp.getBody() });
 			return gson.toJson(new RevertCode(Integer.valueOf(1), "短信验证码发送失败!"));
+			/*
+			iRedisService.setStringKeyToRedis("SMS_INSPECT_KEY" + phone, code, 60);
+			iRedisService.setStringKeyToRedis("SMS_ACCESS_TOKEN" + phone, code, 600);
+			logger.info("<|>DialController<|>sendSms<|>phone:{}<|>sms:{}<|>",
+					new Object[] { phone, code });
+			return gson.toJson(new RevertCode(Integer.valueOf(0), "短信验证码成功!"));
+			*/
 		} catch (Exception e) {
 			logger.error("<|>DialController<|>sendSms<|>phone:" + phone + "<|>" + e.getMessage() + "<|>{}<|>", e);
 		}

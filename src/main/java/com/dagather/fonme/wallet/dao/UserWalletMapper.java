@@ -2,6 +2,7 @@ package com.dagather.fonme.wallet.dao;
 
 import com.dagather.fonme.wallet.model.UserWallet;
 import com.dagather.fonme.wallet.model.UserWalletExample;
+import java.math.BigDecimal;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
@@ -33,4 +34,6 @@ public abstract interface UserWalletMapper {
 	public abstract int updateByPrimaryKeySelective(UserWallet paramUserWallet);
 
 	public abstract int updateByPrimaryKey(UserWallet paramUserWallet);
+
+    int updateBalance(@Param("uwid") Long uwid, @Param("balance") BigDecimal balance, @Param("updateDate") java.util.Date updateDate);
 }

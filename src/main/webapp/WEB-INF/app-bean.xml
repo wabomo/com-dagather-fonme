@@ -25,6 +25,9 @@
 		<property name="successor" ref="sendDialDataHandlerImpl"></property>
 	</bean>
 
+	<!-- 应用启动完成后运行的类 -->
+	<bean class="com.dagather.fonme.startup.StartupProcessor"/>
+
 	<!-- 支持上传文件 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />

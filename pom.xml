@@ -228,6 +228,38 @@
 			<version>3.1.0</version>
 		</dependency>
 	</dependencies>
+	<!-- 假如没有私服 ，则 本地仓库找不到，则访问中心仓库
+      假如有私服 ：访问顺序
+        首先访问本地仓库
+    本地仓库没有，则访问私服仓库
+    私服仓库也没有，则访问中心仓库
+  -->
+	<!-- 加载的是 第三方项目使用的jar包 -->
+	<repositories>
+		<repository>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<id>public</id>
+			<name>public</name>
+			<url>http://localhost:8081/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
+
+	<!-- 加载的是maven生命周期插件的jar包 -->
+	<pluginRepositories>
+		<pluginRepository>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<id>public</id>
+			<name>public</name>
+			<url>http://localhost:8081/nexus/content/groups/public/</url>
+		</pluginRepository>
+	</pluginRepositories>
 	<build>
 		<finalName>com-dagather-fonme</finalName>
 		<pluginManagement>
@@ -261,6 +293,26 @@
 					<sourceIncludes>
 						<sourceInclude>*</sourceInclude>
 					</sourceIncludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>8.1.16.v20140903</version>
+				<configuration>
+					<stopKey>stop</stopKey>
+					<stopPort>9999</stopPort>
+					<scanIntervalSeconds>1</scanIntervalSeconds>
+					<contextXml>${project.basedir}/src/main/resources/jetty-context.xml</contextXml>
+					<webApp>
+						<contextPath>/</contextPath>
+					</webApp>
+					<connectors>
+						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+							<port>80</port>
+							<maxIdleTime>60000</maxIdleTime>
+						</connector>
+					</connectors>
 				</configuration>
 			</plugin>
 		</plugins>

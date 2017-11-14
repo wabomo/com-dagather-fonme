@@ -254,4 +254,11 @@
       order by ${orderByClause}
     </if>
   </select>
+  <update id="updateBalance" parameterType="map" >
+    update fm_user_wallet
+    set
+    balance = balance+#{balance,jdbcType=BIGINT},
+    update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where uwid = #{uwid,jdbcType=BIGINT}
+  </update>
 </mapper>
