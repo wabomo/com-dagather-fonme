@@ -106,7 +106,7 @@ public class CalcFeeTaskJob {
             userBillCallProducer.send(jsonStr);
             logger.info("任务正常结束 <<<<<<<<< time = " + System.currentTimeMillis() / 1000);
 
-            Thread.sleep(60 * 60 * 1000);
+            //Thread.sleep(60 * 60 * 1000);
 
         } catch (Exception e) {
             logger.error("任务异常结束 <<<<<<<<< time = " + System.currentTimeMillis() / 1000, e);
