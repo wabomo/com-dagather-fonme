@@ -1,9 +1,11 @@
 package com.dagather.fonme.exchange.service;
 
+import com.dagather.fonme.dial.model.DialRecord;
 import com.dagather.fonme.exchange.model.ExCurrencyInfo;
 import com.dagather.fonme.exchange.model.ExCurrencyRate;
 import com.dagather.fonme.exchange.model.ExExpensesInfo;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -38,4 +40,12 @@ public interface IExchangeService {
      * @return
      */
     ExCurrencyRate selectOneExCurrencyRateBy(String ymd, String exFromCurrencyCode, String exToCurrencyCode);
+
+    /**
+     * 更新或插入货币兑换汇率记录
+     * @param exCurrencyRate
+     * @return
+     * @throws SQLException
+     */
+    boolean updateOrInsertExCurrencyRate(ExCurrencyRate exCurrencyRate) throws SQLException;
 }

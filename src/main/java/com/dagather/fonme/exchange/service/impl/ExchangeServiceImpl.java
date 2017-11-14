@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -126,5 +127,26 @@ public class ExchangeServiceImpl implements IExchangeService {
             return crList.get(0);
         }
         return null;
+    }
+
+    public boolean updateOrInsertExCurrencyRate(ExCurrencyRate exCurrencyRate) throws SQLException {
+        ExCurrencyRateExample example = new ExCurrencyRateExample();
+        ExCurrencyRateExample.Criteria c = example.createCriteria();
+        c.andYmdEqualTo(exCurrencyRate.getYmd());
+        c.andExFrCurrencyCodeEqualTo(exCurrencyRate.getExFrCurrencyCode());
+        c.andExToCurrencyCodeEqualTo(exCurrencyRate.getExToCurrencyCode());
+        List<ExCurrencyRate> crList = this.exCurrencyRateMapper.selectByExample(example);
+        int cnt = 0;
+        if (null == crList || crList.size() <= 0) {
+            // 插入
+            exCurrencyRate.setEcrid(null);
+            cnt = this.exCurrencyRateMapper.insert(exCurrencyRate);
+        } else {
+            // 更新
+            Long ecrid = crList.get(0).getEcrid();
+            exCurrencyRate.setEcrid(ecrid);
+            cnt = this.exCurrencyRateMapper.updateByPrimaryKeySelective(exCurrencyRate);
+        }
+        return cnt > 0;
     }
 }

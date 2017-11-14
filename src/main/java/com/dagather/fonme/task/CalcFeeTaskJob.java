@@ -29,7 +29,7 @@ public class CalcFeeTaskJob {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
 
-    @Scheduled(cron = "0 0/1 * * * ?")
+    //@Scheduled(cron = "0 0/1 * * * ?")
     //@Scheduled(cron = "0/10 * * * * ?")//test
     public void calcFeeJob() {
         try {
